@@ -4,12 +4,10 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Permitimos las Cors
 builder.Services.AddCors(p => p.AddPolicy("corsenabled", options =>
 {
     options.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
-}
-));
+}));
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -26,10 +24,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
 }
-app.MapScalarApiReference();
-
-app.UseCors("corsenabled"); // Permitimos las Cors
-
+app.MapScalarApiReference(opt =>
+{
+    opt.Title = "Scalar Personajes";
+    opt.Theme = ScalarTheme.BluePlanet;
+});
+app.UseCors("corsenabled");
 app.MapOpenApi();
 app.UseHttpsRedirection();
 app.MapControllers();
