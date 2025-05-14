@@ -43,5 +43,10 @@ namespace ApiPersonajesAWS.Repositories
             }
         }
 
+        public async Task<Personaje?> FindPersonajeByIdAsync(int idPersonaje)
+        {
+            return await this.context.Personajes
+                .FirstOrDefaultAsync(p => p.IdPersonaje == idPersonaje);
+        }
     }
 }

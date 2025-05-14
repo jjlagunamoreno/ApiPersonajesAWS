@@ -36,5 +36,15 @@ namespace ApiPersonajesAWS.Controllers
             return Ok();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Personaje>> GetPersonajeById(int id)
+        {
+            Personaje? personaje = await this.repo.FindPersonajeByIdAsync(id);
+            if (personaje == null)
+            {
+                return NotFound();
+            }
+            return personaje;
+        }
     }
 }
